@@ -1,0 +1,30 @@
+{
+  "name": "quests",
+  "version": "1.0.0",
+  "description": "daily quests on 4game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simareeno/quests.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simareeno/quests/issues"
+  },
+	"devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-plumber": "^1.0.1",
+    "gulp-watch": "^4.2.0",
+		"gulp-less": "~3.0.0",
+		"gulp-minify-css": "~1.1.0",
+		"gulp-uglify": "^0.3.1",
+		"bower": "~1.3.0",
+    "less": "^2.5.1",
+    "less-plugin-autoprefix": "^1.4.0"
+  },
+  "homepage": "https://github.com/simareeno/quests#readme"
+}

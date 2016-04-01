@@ -1,2 +1,1 @@
-# up-office
-Office map for up programm
+# Карта офиса для программы «Вверх»
