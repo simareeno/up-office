@@ -86,6 +86,12 @@ $(function() {
 			application = JSON.stringify($('.application__content').serializeObject());
 			applicationList.push(application);
 			localStorage.setItem('AllApplications', JSON.stringify(applicationList));
+			$('.form__field-input, .form__field-radio').val('').removeAttr('checked');
+			$('.menu__item').removeClass('menu__item--active');
+			$('.popup').removeClass('popup--active');
+			$('.close').removeClass('close--active');
+			$('.menu__item--office').addClass('menu__item--active')
+			$('.success').addClass('success--active');
 			return false;
 		}
 
