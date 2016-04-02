@@ -19,31 +19,60 @@
 			overflow: auto;
 		}
 
+		.wrap {
+			display: flex;
+			justify-content: center;
+		}
+
 		* {
 			-webkit-user-select: initial;
 		}
 
+		table {
+			background-color: black;
+		}
+
+		tr {
+
+		}
+
+		button {
+			position: absolute;
+			top: 30px;
+			right: 30px;
+		}
+
 	</style>
 
-	<table style="color: white;" id="reservations">
-		<thead>
-			<tr>
-			    <th>1</th><th>2</th><th>3</th><th>4</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+	<div class="wrap">
+
+		<table style="color: white;" class="applications">
+			<thead>
+				<tr>
+				    <th>Имя</th><th>Вуз и специальность</th><th>Год выпуска</th><th>Телефон</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+	</div>
+
+	<button class="clear" value="удалить">Удалить</button>
 
 
 	<script type="text/javascript">
 		$(document).ready(function () {
 
+			$('.clear').click(function () {
+				localStorage.removeItem('AllApplications');
+			})
+
 			var applicationList = JSON.parse(localStorage.getItem('AllApplications')) || [];
 
 			console.log(applicationList);
 
-			var tbody = $('#reservations tbody'),
+			var tbody = $('table tbody'),
 				props = ["name", "education", "year", "about"];
 			$.each(applicationList, function(i, app) {
 				var lol = JSON.parse(app);
@@ -56,6 +85,7 @@
 			  tbody.append(tr);
 			});
 		});
+
 	</script>
 
 
