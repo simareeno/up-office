@@ -1,0 +1,96 @@
+@import 'vars';
+
+.map {
+	position: relative;
+	height: 100%;
+}
+
+.leaflet-container {
+	background-image: url(../img/bg.png);
+	background-size: 6%;
+	background-repeat: repeat;
+}
+
+.leaflet-control-attribution, .leaflet-control-zoom {
+	display: none;
+}
+
+.leaflet-top {
+	top: 50%;
+}
+
+.leaflet-control-layers-selector {
+	background-color: white;
+	border-radius: 100%;
+	padding: 24px;
+	appearance: none;
+	z-index: 1;
+	position: relative;
+	outline: 0;
+	border: 0;
+	margin:0;
+	opacity: 1;
+	transition: opacity .2s ease-in-out, box-shadow .2s ease-in-out;
+	box-shadow: 0 3px 9px 0 rgba(0, 0, 0, .2);
+
+	&:checked {
+		opacity: .5;
+		box-shadow: 0 3px 9px 0 rgba(0, 0, 0, 0);
+
+		~ span {
+			opacity: .4;
+		}
+	}
+}
+
+.leaflet-control-layers {
+	top: -150px;
+	box-shadow: none;
+	transform: translate(0, 0);
+	transition: transform .3s ease-in-out;
+
+	&--hide {
+		transform: translate(100px, 0);
+	}
+
+	label {
+		display: flex;
+		position: relative;
+		margin-top: 12px;
+		cursor: pointer;
+
+		&:first-child {
+			margin-top: 0;
+
+			span {
+				right: 17px;
+			}
+		}
+	}
+}
+
+.leaflet-control-layers-base span {
+	color: black;
+	.gotham-black;
+	right: 19px;
+	top: 15px;
+	z-index: 2;
+	position: absolute;
+	font-size: 13px;
+}
+
+.leaflet-control-layers-expanded {
+	background: transparent;
+	color: white;
+}
+
+.leaflet-top .leaflet-control {
+	margin-top: 0;
+	padding: 0;
+}
+
+.leaflet-control-layers-list, .leaflet-top .leaflet-control, .leaflet-control-layers-base {
+	border: 0;
+	box-shadow: 0;
+	outline: 0;
+}

@@ -4,6 +4,7 @@ var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 var watch = require('gulp-watch');
 var plumber = require('gulp-plumber');
+var manifest = require('gulp-appcache');
 
 var AutoPrefixPlugin = require('less-plugin-autoprefix');
 var autoprefix = new AutoPrefixPlugin({
@@ -12,9 +13,9 @@ var autoprefix = new AutoPrefixPlugin({
 
 var HTML = '*.html';
 var IMAGES = './libs/img/**/*';
+var FONTS = './libs/fonts/**/*';
 var STYLES = './libs/styles/**/*.less';
 var SCRIPTS = './libs/scripts/**/*.js';
-var FONTS = './libs/fonts/**/*';
 
 gulp.task('img', function() {
 	return gulp.src(IMAGES)
@@ -22,16 +23,16 @@ gulp.task('img', function() {
 		.pipe(gulp.dest('./out/img'));
 });
 
-gulp.task('html', function() {
-	return gulp.src(HTML)
-		.pipe(plumber())
-		.pipe(gulp.dest('./out'));
-});
-
 gulp.task('fonts', function() {
 	return gulp.src(FONTS)
 		.pipe(plumber())
 		.pipe(gulp.dest('./out/fonts'));
+});
+
+gulp.task('html', function() {
+	return gulp.src(HTML)
+		.pipe(plumber())
+		.pipe(gulp.dest('./out'));
 });
 
 gulp.task('scripts', function() {
@@ -41,7 +42,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('styles', function() {
-	return gulp.src(STYLES)
+	return gulp.src([STYLES])
 		.pipe(plumber())
 		.pipe(less({
 			plugins: [autoprefix]
@@ -50,11 +51,24 @@ gulp.task('styles', function() {
 		.pipe(gulp.dest('./out/css'));
 });
 
+gulp.task('manifest', function(){
+  gulp.src([FONTS, SCRIPTS, STYLES, IMAGES, HTML])
+    .pipe(manifest({
+      hash: true,
+      preferOnline: true,
+      network: ['http://*', 'https://*', '*'],
+      filename: 'app.manifest',
+      exclude: 'app.manifest'
+     }))
+    .pipe(gulp.dest('./out'));
+});
+
 gulp.task('watch', function() {
   gulp.watch(HTML, ['html']);
   gulp.watch(IMAGES, ['img']);
   gulp.watch(STYLES, ['styles']);
+  gulp.watch(FONTS, ['fonts']);
   gulp.watch(SCRIPTS, ['scripts']);
 });
 
-gulp.task('default', ['img', 'styles', 'scripts', 'fonts', 'html']);
+gulp.task('default', ['img', 'styles', 'fonts', 'scripts', 'html', 'manifest']);

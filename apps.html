@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="scripts/jquery-2.2.2.min.js" charset="utf-8"></script>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-title" content="Innova map" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<link rel="stylesheet" href="css/global.css">
+	<title>Заявки</title>
+</head>
+<body>
+
+	<style>
+
+		body {
+			margin: 0
+			overflow: auto;
+		}
+
+		* {
+			-webkit-user-select: initial;
+		}
+
+	</style>
+
+	<table style="color: white;" id="reservations">
+		<thead>
+			<tr>
+			    <th>1</th><th>2</th><th>3</th><th>4</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			var applicationList = JSON.parse(localStorage.getItem('AllApplications')) || [];
+
+			console.log(applicationList);
+
+			var tbody = $('#reservations tbody'),
+				props = ["name", "education", "year", "about"];
+			$.each(applicationList, function(i, app) {
+				var lol = JSON.parse(app);
+				console.log(lol);
+				var tr = $('<tr>');
+				$.each(props, function(i, prop) {
+					console.log(lol[prop]);
+					$('<td>').html(lol[prop]).appendTo(tr);
+				});
+			  tbody.append(tr);
+			});
+		});
+	</script>
+
+
+
+</body>
+</html>
