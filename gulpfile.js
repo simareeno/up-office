@@ -16,6 +16,7 @@ var IMAGES = './libs/img/**/*';
 var FONTS = './libs/fonts/**/*';
 var STYLES = './libs/styles/**/*.less';
 var SCRIPTS = './libs/scripts/**/*.js';
+var OUT = './out/**/*';
 
 gulp.task('img', function() {
 	return gulp.src(IMAGES)
@@ -52,7 +53,7 @@ gulp.task('styles', function() {
 });
 
 gulp.task('manifest', function(){
-  gulp.src([FONTS, SCRIPTS, STYLES, IMAGES, HTML])
+  gulp.src(OUT)
     .pipe(manifest({
       hash: true,
       preferOnline: true,
