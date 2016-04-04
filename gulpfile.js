@@ -48,7 +48,7 @@ gulp.task('styles', function() {
 		.pipe(less({
 			plugins: [autoprefix]
 		}))
-		// .pipe(minifyCSS())
+		.pipe(minifyCSS())
 		.pipe(gulp.dest('./out/css'));
 });
 
@@ -59,7 +59,7 @@ gulp.task('manifest', function(){
       preferOnline: true,
       network: ['http://*', 'https://*', '*'],
       filename: 'app.manifest',
-      exclude: 'app.manifest'
+      exclude: ['app.manifest', 'index.html']
      }))
     .pipe(gulp.dest('./out'));
 });
@@ -72,4 +72,4 @@ gulp.task('watch', function() {
   gulp.watch(SCRIPTS, ['scripts']);
 });
 
-gulp.task('default', ['img', 'styles', 'fonts', 'scripts', 'html', 'manifest']);
+gulp.task('default', ['img', 'styles', 'fonts', 'scripts', 'html']);
