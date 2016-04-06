@@ -58,8 +58,8 @@ gulp.task('manifest', function(){
       hash: true,
       preferOnline: true,
       network: ['http://*', 'https://*', '*'],
-      filename: 'app.manifest',
-      exclude: ['app.manifest', 'index.html']
+      filename: 'cache.manifest',
+      exclude: 'cache.manifest'
      }))
     .pipe(gulp.dest('./out'));
 });

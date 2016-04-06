@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" manifest="app.manifest">
+<html lang="en" manifest="cache.manifest">
 <head>
 	<meta charset="UTF-8">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -25,6 +25,7 @@
 			<div class="header__menu menu">
 				<div class="menu__item menu__item--forgame">О Фогейме</div>
 				<div class="menu__item menu__item--office menu__item--active">Наш офис</div>
+				<div class="menu__item menu__item--apps"><a href="/apps.html"></a>Заявки</div>
 			</div>
 			<div class="header__action menu__item">
 				<div class="button button--main">Подать заявку</div>
@@ -125,7 +126,113 @@
 
 			</div>
 		</div>
+
+		<div class="apps popup">
+			<div class="application__content">
+				<div class="wrap">
+
+					<table style="color: white;" class="applications">
+						<thead>
+							<tr>
+								<th>Имя</th><th>Вуз и специальность</th><th>Год выпуска</th><th>Телефон</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+
+				</div>
+
+				<button class="clear" value="удалить">Удалить</button>
+			</div>
+		</div>
 	</div>
+
+	<div id="placeholder">
+		<div id="progress"></div>
+		<div id="appstatus"></div>
+		<div class="button button--close" style="width: 120px;margin-top:30px;">Закрыть</div>
+	</div>
+
+
+	<script>
+		var cacheStatusValues = [];
+		cacheStatusValues[0] = 'не сохранилось';
+		cacheStatusValues[1] = 'ничего не делаю';
+		cacheStatusValues[2] = 'проверяю';
+		cacheStatusValues[3] = 'скачиваю';
+		cacheStatusValues[4] = 'готово';
+		cacheStatusValues[5] = 'obsolete';
+
+		var cache = window.applicationCache;
+		cache.addEventListener('checking',logEvent,false);
+		cache.addEventListener('noupdate',logEvent,false);
+		cache.addEventListener('downloading',logEvent,false);
+		cache.addEventListener('cached',logEvent,false);
+		cache.addEventListener('updateready',logEvent,false);
+		cache.addEventListener('obsolete',logEvent,false);
+		cache.addEventListener('error',logEvent,false);
+		cache.addEventListener('onchecking',logEvent,false);
+		cache.addEventListener('ondownloading',logEvent,false);
+		cache.addEventListener('oncached',logEvent,false);
+		cache.addEventListener('onerror',logEvent,false);
+
+		var appstatus = document.querySelector('#status');
+		var progress = document.querySelector('#progress');
+
+		window.applicationCache.onprogress = function (e) {
+			var message = 'Скачал..';
+
+			if (e.lengthComputable) {
+				var myMessage = message + Math.round(e.loaded / e.total * 100) + '%';
+				progress.innerHTML = myMessage;
+			} else {
+				console.log(message);
+			};
+		};
+
+		function logEvent(e) {
+			var online, status, type, message;
+			online = (navigator.onLine) ? 'да' : 'нет';
+			status = cacheStatusValues[cache.status];
+			type = e.type;
+			message = 'онлайн: ' + online;
+			message+= ',' + type;
+			message+= ', ' + status;
+			if (type == 'error' && navigator.onLine) {
+				message+= ' (ошибочка в коде)';
+			}
+				appstatus.innerHTML = message;
+				console.log(message);
+		}
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			$('.clear').click(function () {
+				localStorage.removeItem('AllApplications');
+			})
+
+			var applicationList = JSON.parse(localStorage.getItem('AllApplications')) || [];
+
+			console.log(applicationList);
+
+			var tbody = $('table tbody'),
+				props = ["name", "education", "year", "about"];
+			$.each(applicationList, function(i, app) {
+				var lol = JSON.parse(app);
+				console.log(lol);
+				var tr = $('<tr>');
+				$.each(props, function(i, prop) {
+					console.log(lol[prop]);
+					$('<td>').html(lol[prop]).appendTo(tr);
+				});
+			  tbody.append(tr);
+			});
+		});
+
+	</script>
 
 	<script src="scripts/form.js" charset="utf-8"></script>
 	<script src="scripts/map.js" charset="utf-8"></script>

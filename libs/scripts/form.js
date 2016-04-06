@@ -28,6 +28,20 @@ $(document).ready(function () {
 		$('.close').addClass('close--active');
 	});
 
+	$('.menu__item--apps').click(function () {
+
+		if ($(this).hasClass('menu__item--active')) {
+			return false;
+		}
+
+		$('.menu__item').removeClass('menu__item--active');
+		$(this).addClass('menu__item--active');
+		$('.popup').removeClass('popup--active');
+		$('.apps').toggleClass('popup--active');
+		$('.leaflet-control-layers').toggleClass('leaflet-control-layers--hide');
+		$('.close').addClass('close--active');
+	});
+
 	$('.menu__item--office').click(function () {
 
 		if ($(this).hasClass('menu__item--active')) {
@@ -90,6 +104,7 @@ $(function() {
 			$('.menu__item').removeClass('menu__item--active');
 			$('.popup').removeClass('popup--active');
 			$('.close').removeClass('close--active');
+			$('.leaflet-control-layers').toggleClass('leaflet-control-layers--hide');
 			$('.menu__item--office').addClass('menu__item--active')
 			$('.success').addClass('success--active');
 			return false;

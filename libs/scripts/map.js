@@ -82,5 +82,9 @@ $(document).ready(function () {
 	mapHeight = map.height();
 	mapWidth = map.width();
 
+	$('.button--close').click(function () {
+		$('#placeholder').hide();
+	})
+
 	init()
 });
