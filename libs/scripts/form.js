@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+	$('.clear').click(function () {
+		localStorage.removeItem('AllApplications');
+	})
+
 	$('.header__action').click(function () {
 
 		if ( $(this).hasClass('menu__item--active') ) {
@@ -107,6 +111,22 @@ $(function() {
 			$('.leaflet-control-layers').toggleClass('leaflet-control-layers--hide');
 			$('.menu__item--office').addClass('menu__item--active')
 			$('.success').addClass('success--active');
+
+			applicationList = JSON.parse(localStorage.getItem('AllApplications')) || [];
+
+			var tbody = $('table tbody'),
+				props = ["name", "education", "year", "about"];
+			$.each(applicationList, function(i, app) {
+				var lol = JSON.parse(app);
+				console.log(lol);
+				var tr = $('<tr>');
+				$.each(props, function(i, prop) {
+					console.log(lol[prop]);
+					$('<td>').html(lol[prop]).appendTo(tr);
+				});
+			  tbody.append(tr);
+			});
+			
 			return false;
 		}
 

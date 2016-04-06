@@ -157,11 +157,11 @@
 
 	<script>
 		var cacheStatusValues = [];
-		cacheStatusValues[0] = 'не сохранилось';
-		cacheStatusValues[1] = 'ничего не делаю';
-		cacheStatusValues[2] = 'проверяю';
-		cacheStatusValues[3] = 'скачиваю';
-		cacheStatusValues[4] = 'готово';
+		cacheStatusValues[0] = 'uncached';
+		cacheStatusValues[1] = 'idle';
+		cacheStatusValues[2] = 'checking';
+		cacheStatusValues[3] = 'downloading';
+		cacheStatusValues[4] = 'updateready';
 		cacheStatusValues[5] = 'obsolete';
 
 		var cache = window.applicationCache;
@@ -177,7 +177,7 @@
 		cache.addEventListener('oncached',logEvent,false);
 		cache.addEventListener('onerror',logEvent,false);
 
-		var appstatus = document.querySelector('#status');
+		var appstatus = document.querySelector('#appstatus');
 		var progress = document.querySelector('#progress');
 
 		window.applicationCache.onprogress = function (e) {
@@ -192,46 +192,18 @@
 		};
 
 		function logEvent(e) {
-			var online, status, type, message;
+			var online, status, type, message, myMessage;
 			online = (navigator.onLine) ? 'да' : 'нет';
 			status = cacheStatusValues[cache.status];
 			type = e.type;
-			message = 'онлайн: ' + online;
-			message+= ',' + type;
-			message+= ', ' + status;
+			message = 'online: ' + online;
+			message+= ', event: ' + type;
+			message+= ', status: ' + status;
 			if (type == 'error' && navigator.onLine) {
-				message+= ' (ошибочка в коде)';
+				message+= ' (ошибка в коде)';
 			}
 				appstatus.innerHTML = message;
-				console.log(message);
 		}
-	</script>
-
-	<script type="text/javascript">
-		$(document).ready(function () {
-
-			$('.clear').click(function () {
-				localStorage.removeItem('AllApplications');
-			})
-
-			var applicationList = JSON.parse(localStorage.getItem('AllApplications')) || [];
-
-			console.log(applicationList);
-
-			var tbody = $('table tbody'),
-				props = ["name", "education", "year", "about"];
-			$.each(applicationList, function(i, app) {
-				var lol = JSON.parse(app);
-				console.log(lol);
-				var tr = $('<tr>');
-				$.each(props, function(i, prop) {
-					console.log(lol[prop]);
-					$('<td>').html(lol[prop]).appendTo(tr);
-				});
-			  tbody.append(tr);
-			});
-		});
-
 	</script>
 
 	<script src="scripts/form.js" charset="utf-8"></script>
