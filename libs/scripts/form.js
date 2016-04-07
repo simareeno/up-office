@@ -1,5 +1,15 @@
 $(document).ready(function () {
 
+	window.setInterval(function(){
+		if (navigator.onLine) {
+			$('.menu__item--apps').show();
+			console.log('online');
+		} else {
+			$('.menu__item--apps').hide();
+			console.log('offline');
+		}
+	}, 5000);
+
 	$('.clear').click(function () {
 		localStorage.removeItem('AllApplications');
 	})
@@ -126,7 +136,7 @@ $(function() {
 				});
 			  tbody.append(tr);
 			});
-			
+
 			return false;
 		}
 
