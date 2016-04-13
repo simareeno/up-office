@@ -44,7 +44,7 @@
 
 			&-name {
 				font-size: 13px;
-				font-family: Georgia, serif;
+				font-family: 'PTSerif-Italic', Georgia, serif;
 				opacity: .5;
 				margin-top: 10px;
 			}
@@ -57,26 +57,21 @@
 	}
 
 	&__left {
-		width: 575px;
 		display: inline-block;
-		padding-right: 75px;
 	}
 
 	&__right {
-		width: 225px;
 		display: inline-block;
 		vertical-align: top;
-		padding-left: 45px;
-		border-left: 1px solid rgba(255, 255, 255, .1);;
 	}
 
 	&__text {
-		width: 225px;
+		width: 325px;
 		display: inline-block;
-		font-family: Georgia, serif;
+		font-family: 'PTSerif-Italic', Georgia, serif;
 		font-size: 15px;
 		line-height: 24px;
-		padding: 45px 0;
+		padding: 20px 0;
 		vertical-align: top;
 
 		& + & {
@@ -91,12 +86,25 @@
 	}
 }
 
+.message {
+	.gotham-black;
+	display: inline-block;
+	margin-left: 20px;
+	opacity: 0;
+	font-size: 13px;
+	transition: opacity .2s ease-in;
+
+	&--active {
+		opacity: 1;
+	}
+}
+
 .application {
 	color: #292929;
 	background: rgba(248, 200, 34, .95);
 
 	&__content {
-		width: 800px;
+		width: 700px;
 		margin-top: 60px;
 		display: table;
 		padding-bottom: 100px;
@@ -219,15 +227,14 @@
 	transition: opacity 7s ease-in, transform .5s ease-in-out;
 
 	&--active {
-		opacity: 0;
+		// opacity: 0;
 		transform: translate(0, 0px);
 	}
 }
 
 .applications {
-
+	margin-top: 30px;
 	color: black;
-	background-color: white;
 	padding: 10px;
 
 	&__tr {

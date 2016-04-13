@@ -11,7 +11,7 @@ var autoprefix = new AutoPrefixPlugin({
 	browsers: ['last 2 versions']
 });
 
-var HTML = '*.html';
+var MARKUP = '*.php';
 var IMAGES = './libs/img/**/*';
 var FONTS = './libs/fonts/**/*';
 var STYLES = './libs/styles/**/*.less';
@@ -30,8 +30,8 @@ gulp.task('fonts', function() {
 		.pipe(gulp.dest('./out/fonts'));
 });
 
-gulp.task('html', function() {
-	return gulp.src(HTML)
+gulp.task('markup', function() {
+	return gulp.src(MARKUP)
 		.pipe(plumber())
 		.pipe(gulp.dest('./out'));
 });
@@ -59,17 +59,17 @@ gulp.task('manifest', function(){
       preferOnline: true,
       network: ['http://*', 'https://*', '*'],
       filename: 'cache.manifest',
-      exclude: 'cache.manifest'
+      exclude: ['cache.manifest', 'sendmail.php']
      }))
     .pipe(gulp.dest('./out'));
 });
 
 gulp.task('watch', function() {
-  gulp.watch(HTML, ['html']);
+  gulp.watch(MARKUP, ['markup']);
   gulp.watch(IMAGES, ['img']);
   gulp.watch(STYLES, ['styles']);
   gulp.watch(FONTS, ['fonts']);
   gulp.watch(SCRIPTS, ['scripts']);
 });
 
-gulp.task('default', ['img', 'styles', 'fonts', 'scripts', 'html']);
+gulp.task('default', ['img', 'styles', 'fonts', 'scripts', 'markup']);

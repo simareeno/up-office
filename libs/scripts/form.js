@@ -1,20 +1,3 @@
-jQuery.fn.selectText = function(){
-    var doc = document;
-    var element = this[0];
-    console.log(this, element);
-    if (doc.body.createTextRange) {
-        var range = document.body.createTextRange();
-        range.moveToElementText(element);
-        range.select();
-    } else if (window.getSelection) {
-        var selection = window.getSelection();
-        var range = document.createRange();
-        range.selectNodeContents(element);
-        selection.removeAllRanges();
-        selection.addRange(range);
-    }
-};
-
 $(document).ready(function () {
 
 	window.setInterval(function(){
@@ -28,7 +11,14 @@ $(document).ready(function () {
 	}, 5000);
 
 	$('.clear').click(function () {
-		localStorage.removeItem('AllApplications');
+
+        var rly = confirm("Точно удаляем все заявки?");
+
+        if (rly) {
+            localStorage.removeItem('AllApplications');
+            updateList();
+        }
+
 	})
 
 	$('.header__action').click(function () {
@@ -99,8 +89,7 @@ $(document).ready(function () {
 		$(this).removeClass('form__field-input--error');
 	})
 
-	$.fn.serializeObject = function()
-{
+	$.fn.serializeObject = function() {
     var o = {};
     var a = this.serializeArray();
     $.each(a, function() {
@@ -113,29 +102,33 @@ $(document).ready(function () {
             o[this.name] = this.value || '';
         }
     });
-    return o;
-};
+        return o;
+    };
 
+    $('.send-apps').click(function () {
 
+        $('.message').addClass('message--active');
+        setTimeout(function(){
+          $('.message').removeClass('message--active');
+        }, 3000);
 
-$(function() {
+	    var applicationsToSend = JSON.parse(localStorage.getItem('AllApplications')) || [];
 
-	// var copyButton = $('.copy-all');
-
-	// var copyButton = document.getElementById('copy-all');
-
-	// copyButton.addEventListener('touchstart', function(e) {
-	// 	console.log('thtddh');
-	// 	$("#applications").select();
-	// });
+        $.ajax({
+            url:'sendmail.php',
+            type:'POST',
+            data:{'data': applicationsToSend}
+        });
+    });
 
 	function updateList() {
 		$( ".applications__tr" ).remove();
 
 		applicationList = JSON.parse(localStorage.getItem('AllApplications')) || [];
+		console.log(applicationList)
 
 		var tbody = $('#applications'),
-			props = ["name", "education", "year", "about"];
+			props = ["name", "education", "year", "phone", "mail"];
 		$.each(applicationList, function(i, app) {
 			var lol = JSON.parse(app);
 			var tr = $('<div class="applications__tr">');
@@ -184,12 +177,13 @@ $(function() {
 			$('.leaflet-control-layers').toggleClass('leaflet-control-layers--hide');
 			$('.menu__item--office').addClass('menu__item--active')
 			$('.success').addClass('success--active');
-			return false;
+            setTimeout(function(){
+              $('.success').removeClass('success--active');
+            }, 3000);
+            return false;
 		}
 
 		return false;
 
     });
-});
-
 });

@@ -36,7 +36,7 @@
 		<div class="success">заявка отправлена</div>
 		<div class="application popup">
 			<div class="application__content">
-				<div class="application__content-header">Заявка на&nbsp;участие в&nbsp;градуатской программе Фогейма</div>
+				<div class="application__content-header">Заявка на&nbsp;участие в&nbsp;программе развития молодых специалистов</div>
 				<form class="application__content form" id="application" action="" method="post">
 					<div class="form__field">
 						<div class="form__field-title">Имя и фамилия</div>
@@ -79,7 +79,11 @@
 					</div>
 					<div class="form__field">
 						<div class="form__field-title">Контактный телефон</div>
-						<input class="form__field-input form__field-input--phone" name="about" placeholder="+7 ХХХ ХХХ ХХ ХХ" form="application" type="text" class="form__field-input">
+						<input class="form__field-input form__field-input--phone" name="phone" placeholder="+7 ХХХ ХХХ ХХ ХХ" form="application" type="text" class="form__field-input">
+					</div>
+					<div class="form__field">
+						<div class="form__field-title">E-mail</div>
+						<input class="form__field-input form__field-input--mail" name="mail" placeholder="go@freeman.ru" form="application" type="text" class="form__field-input">
 					</div>
 					<div class="form__field">
 						<input class="form__field-submit button button--main" value="подать заявку" form="application" type="submit">
@@ -98,6 +102,11 @@
 					</div>
 					<div class="forgame__text">
 						среди которых легендарная Lineage&nbsp;2, ведущий киберспортивный шутер Point Blank, красивая ролевая игра Aion, нашумевший экшен Blade &amp;&nbsp;Soul. С&nbsp;недавних пор в&nbsp;Фогейме есть не&nbsp;только ММО-проекты, но&nbsp;и&nbsp;мобильные игры.
+					</div>
+					<div class="forgame__right">
+						<div class="forgame__text forgame__text--small">
+							<img src="img/innova.png" alt="">&mdash;&nbsp;российская IT-компания, которая занимается изданием компьютерных и&nbsp;мобильных игр, поддержкой онлайн-кинотеатра &laquo;Аййо&raquo;, созданием и&nbsp;развитием развлекательно-образовательных сервисов.
+						</div>
 					</div>
 					<div class="forgame__partners">
 						<div class="forgame__partners-partner">
@@ -118,12 +127,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="forgame__right">
-					<div class="forgame__text forgame__text--small">
-						<img src="img/innova.png" alt="">&mdash;&nbsp;российская IT-компания, которая занимается изданием компьютерных и&nbsp;мобильных игр, поддержкой онлайн-кинотеатра &laquo;Аййо&raquo;, созданием и&nbsp;развитием развлекательно-образовательных сервисов.
-					</div>
-				</div>
-
 			</div>
 		</div>
 
@@ -131,12 +134,12 @@
 			<div class="application__content">
 				<div class="wrap">
 
-					<!-- <div class="button copy-all" id="copy-all" style="width:170px;margin-bottom: 30px;">Выделить все</div> -->
+					<div class="button button--main send-apps" id="copy-all" style="display:inline-block; margin-right: 20px;">Отправить на почту</div>
+					<div class="button button--black clear" style="display:inline-block">Удалить</div>
+					<div class="message">Заявки улетели на up@inn.ru</div>	
 					<div class="applications" id="applications" contenteditable="true"></div>
 
 				</div>
-
-				<!-- <button class="clear" value="удалить">Удалить</button> -->
 			</div>
 		</div>
 	</div>
