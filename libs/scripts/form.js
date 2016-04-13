@@ -1,3 +1,20 @@
+jQuery.fn.selectText = function(){
+    var doc = document;
+    var element = this[0];
+    console.log(this, element);
+    if (doc.body.createTextRange) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(element);
+        range.select();
+    } else if (window.getSelection) {
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(element);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+};
+
 $(document).ready(function () {
 
 	window.setInterval(function(){
@@ -24,7 +41,7 @@ $(document).ready(function () {
 		$(this).addClass('menu__item--active');
 		$('.popup').removeClass('popup--active');
 		$('.application').toggleClass('popup--active');
-		$('.leaflet-control-layers').toggleClass('leaflet-control-layers--hide');
+		$('.leaflet-control-layers').addClass('leaflet-control-layers--hide');
 		$('.close').addClass('close--active');
 	});
 
@@ -38,7 +55,7 @@ $(document).ready(function () {
 		$(this).addClass('menu__item--active');
 		$('.popup').removeClass('popup--active');
 		$('.forgame').toggleClass('popup--active');
-		$('.leaflet-control-layers').toggleClass('leaflet-control-layers--hide');
+		$('.leaflet-control-layers').addClass('leaflet-control-layers--hide');
 		$('.close').addClass('close--active');
 	});
 
@@ -52,8 +69,9 @@ $(document).ready(function () {
 		$(this).addClass('menu__item--active');
 		$('.popup').removeClass('popup--active');
 		$('.apps').toggleClass('popup--active');
-		$('.leaflet-control-layers').toggleClass('leaflet-control-layers--hide');
+		$('.leaflet-control-layers').addClass('leaflet-control-layers--hide');
 		$('.close').addClass('close--active');
+
 	});
 
 	$('.menu__item--office').click(function () {
@@ -65,14 +83,14 @@ $(document).ready(function () {
 		$('.menu__item').removeClass('menu__item--active');
 		$(this).addClass('menu__item--active');
 		$('.popup').removeClass('popup--active');
-		$('.leaflet-control-layers').toggleClass('leaflet-control-layers--hide');
+		$('.leaflet-control-layers').removeClass('leaflet-control-layers--hide');
 		$('.close').removeClass('close--active');
 	});
 
 	$('.close').click(function () {
 		$('.menu__item').removeClass('menu__item--active');
 		$('.popup').removeClass('popup--active');
-		$('.leaflet-control-layers').toggleClass('leaflet-control-layers--hide');
+		$('.leaflet-control-layers').removeClass('leaflet-control-layers--hide');
 		$(this).removeClass('close--active');
 		$('.menu__item--office').addClass('menu__item--active')
 	})
@@ -98,13 +116,58 @@ $(document).ready(function () {
     return o;
 };
 
+
+
 $(function() {
+
+	// var copyButton = $('.copy-all');
+
+	// var copyButton = document.getElementById('copy-all');
+
+	// copyButton.addEventListener('touchstart', function(e) {
+	// 	console.log('thtddh');
+	// 	$("#applications").select();
+	// });
+
+	function updateList() {
+		$( ".applications__tr" ).remove();
+
+		applicationList = JSON.parse(localStorage.getItem('AllApplications')) || [];
+
+		var tbody = $('#applications'),
+			props = ["name", "education", "year", "about"];
+		$.each(applicationList, function(i, app) {
+			var lol = JSON.parse(app);
+			var tr = $('<div class="applications__tr">');
+			$.each(props, function(i, prop) {
+				$('<p>').html(lol[prop]).appendTo(tr);
+			});
+		  tbody.append(tr);
+		});
+
+		// var tbody = $('table tbody'),
+		// 	props = ["name", "education", "year", "about"];
+		// $.each(applicationList, function(i, app) {
+		// 	var lol = JSON.parse(app);
+		// 	var tr = $('<tr class="applications__tr">');
+		// 	$.each(props, function(i, prop) {
+		// 		$('<td>').html(lol[prop]).appendTo(tr);
+		// 	});
+		//   tbody.append(tr);
+		// });
+	}
+
+	$('.menu__item--apps').click(function () {
+		updateList()
+	});
+
     $('.application__content').submit(function(e) {
 
 		e.preventDefault();
 
 		var applicationList = JSON.parse(localStorage.getItem('AllApplications')) || [];
 		var application = {};
+
 
 		if ( $('.form__field-input--name').val().length < 1 ) {
 			$('.form__field-input--name').addClass("form__field-input--error");
@@ -121,22 +184,6 @@ $(function() {
 			$('.leaflet-control-layers').toggleClass('leaflet-control-layers--hide');
 			$('.menu__item--office').addClass('menu__item--active')
 			$('.success').addClass('success--active');
-
-			applicationList = JSON.parse(localStorage.getItem('AllApplications')) || [];
-
-			var tbody = $('table tbody'),
-				props = ["name", "education", "year", "about"];
-			$.each(applicationList, function(i, app) {
-				var lol = JSON.parse(app);
-				console.log(lol);
-				var tr = $('<tr>');
-				$.each(props, function(i, prop) {
-					console.log(lol[prop]);
-					$('<td>').html(lol[prop]).appendTo(tr);
-				});
-			  tbody.append(tr);
-			});
-
 			return false;
 		}
 
